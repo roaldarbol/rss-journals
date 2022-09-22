@@ -24,20 +24,23 @@ shinyUI(
           downloadButton('downloadCSV', 'Download as CSV')
         ),
         mainPanel(
-          dataTableOutput('table')
+          DT::dataTableOutput('table')
         )
       )
     ),
 
     tabPanel(
-      "Contribute",
+      "Convert",
       sidebarLayout(
         sidebarPanel(
-          fileInput("user_opml", "Choose OPML File", accept = c(".opml", ".xml"))
+          fileInput("user_opml", "Choose OPML File", accept = c(".opml", ".xml")),
+          conditionalPanel(condition = "output.fileUploaded",
+            downloadButton('downloadUserCSV', 'Download as CSV')
+          )
         ),
 
         mainPanel(
-          tableOutput('user_table')
+          DT::dataTableOutput('user_table')
         )
       )
     ),
